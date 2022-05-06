@@ -9,25 +9,26 @@ module.exports.getLocationAppartementParis = async (req, res, next) => {
 
     try{
         (async () => {
-            const browser = await puppeteer.launch({
-                "dumpio": true,
-                "headless": true,
-                "executablePath": '/usr/bin/chromium',
-                "args": [
-                    '--disable-setuid-sandbox',
-                    '--no-sandbox',
-                    '--disable-gpu',
-                ]
-            })
-            const page = await browser.newPage();
-            await page.setDefaultNavigationTimeout(0); 
+                const browser = await puppeteer.launch({
+                    "dumpio": true,
+                    "headless": true,
+                    "executablePath": '/usr/bin/chromium',
+                    "args": [
+                        '--disable-setuid-sandbox',
+                        '--no-sandbox',
+                        '--disable-gpu',
+                    ]
+                })
+                const page = await browser.newPage();
+                await page.setDefaultNavigationTimeout(0); 
 
-            await page.goto(url,{
-                //effacer le timeout et atterndre jusqu'à la recuperation des données 
-                waitUntil : 'load',
-                timeout : 0
-            });
-            
+                await page.goto(url,{
+                    //effacer le timeout et atterndre jusqu'à la recuperation des données
+
+                    waitUntil : 'load',
+                    timeout : 0
+                });
+                
 
             const locationAppartement = await page.evaluate(() => {
                 let data = []
@@ -43,43 +44,43 @@ module.exports.getLocationAppartementParis = async (req, res, next) => {
                         parcelle : "",
                         venteOuLocation : "Location",
                         typeDeBien : "Appartement",
-                            // superficieHabitable : "",
-                            // superficieDuTerrain : "",
-                            // nombreDePiece : "",
-                            // nombreDeChambre : "",
-                            // nombreDeNiveaux : "",
-                            // numeroDEtage : "",
-                            // nombreDeStationnement : "",
-                            // ancienOuNeuf : "",
-                            // etat : "",
-                            // anneeDeConstruction : "",
-                            // grenier : "",
-                            // cave : "",
-                            // jardin : "",
-                            // balcon : "",
-                            // piscine : "",
-                            // chauffage : "",
-                            // detailDeDisponibilite : "",
-                            // prixLoyerVente : "",
-                            // chargeMensuelleOuAnnuelle : "",
-                            // classeEnergetique : "",
-                            // consommationEnergie : "",
-                            // meuble : "",
-                            // agenceImmobilier : "",
-                            // idMutaion : "",
-                            // dateMutation : "",
-                            // nombreLots : "",
-                            // lot1SurfaceCarez : "",
-                            // lot2SurfaceCarez : "",
-                            // lot3SurfaceCarez : "",
-                            // lot4SurfaceCarez : "",
-                            // lot5SurfaceCarez : "",
-                            // lot4numero : "",
-                            // lot5numero : "",
-                            // longitude : "",
-                            // latitude : "",
-                            // prixMoyenne : "",
-                        // site : endpoints.locationAppartement.paris
+                        superficieHabitable : "",
+                        superficieDuTerrain : "",
+                        nombreDePiece : "",
+                        nombreDeChambre : "",
+                        nombreDeNiveaux : "",
+                        numeroDEtage : "",
+                        nombreDeStationnement : "",
+                        ancienOuNeuf : "",
+                        etat : "",
+                        anneeDeConstruction : "",
+                        grenier : "",
+                        cave : "",
+                        jardin : "",
+                        balcon : "",
+                        piscine : "",
+                        chauffage : "",
+                        detailDeDisponibilite : "",
+                        prixLoyerVente : "",
+                        chargeMensuelleOuAnnuelle : "",
+                        classeEnergetique : "",
+                        consommationEnergie : "",
+                        meuble : "",
+                        agenceImmobilier : "",
+                        idMutaion : "",
+                        dateMutation : "",
+                        nombreLots : "",
+                        lot1SurfaceCarez : "",
+                        lot2SurfaceCarez : "",
+                        lot3SurfaceCarez : "",
+                        lot4SurfaceCarez : "",
+                        lot5SurfaceCarez : "",
+                        lot4numero : "",
+                        lot5numero : "",
+                        longitude : "",
+                        latitude : "",
+                        prixMoyenne : "",
+                        site : ""
 
                     })
                 }
