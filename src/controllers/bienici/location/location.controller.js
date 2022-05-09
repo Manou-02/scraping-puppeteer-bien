@@ -1,32 +1,13 @@
 const puppeteer = require('puppeteer');
-const endpoints = require('../../../../utils/endpoints');
-
+const endpoints = require('../../../../utils/endpoints')
+const initialisePage = require('../../../../utils/initialisePage');
 
 module.exports.locationbienici = async (req, res, next) => {
-    const url = endpoints.locationFrance.url + 1    
-
+    const url = endpoints.locationFrance.url    
     try{
 
         (async () => {
-            const browser = await puppeteer.launch({
-                "dumpio": true,
-                "headless": true,
-                "executablePath": '/usr/bin/chromium',
-                "args": [
-                    '--disable-setuid-sandbox',
-                    '--no-sandbox',
-                    '--disable-gpu',
-                ]
-            })
-            const page = await browser.newPage();
-            await page.setDefaultNavigationTimeout(0); 
-
-            await page.goto(url,{
-                //effacer le timeout et atterndre jusqu'à la recuperation des données
-                waitUntil : 'load',
-                timeout : 0
-            });
-            
+            const page = await initialisePage(url);
 
             const location = await page.evaluate(() => {
                 let data = [];
@@ -38,7 +19,8 @@ module.exports.locationbienici = async (req, res, next) => {
                         adresse : element.querySelector('.detailsContainer h3.descriptionTitle span')?.textContent,
                         prix : element.querySelector('.detailsContainer div.price span.thePrice')?.textContent,
                         prixDetail : element.querySelector('.detailsContainer div.price span.perMonth')?.textContent,
-                        description : element.querySelector('.detailsContainer div.descriptionContent')?.textContent.split('\n').join(' ')
+                        description : element.querySelector('.detailsContainer div.descriptionContent')?.textContent.split('\n').join(' '),
+                        url : element.querySelector('.sideListItemContainer .detailsContainer .details a.detailedSheetLink').href
                     });
                 }   
                 // console.log(data);
@@ -51,5 +33,14 @@ module.exports.locationbienici = async (req, res, next) => {
 
     }catch(err){
         console.log(`Erreur lors de la recuperation des données`);
+    }
+}
+
+
+module.exports.getDetailLocationBienici = async () => {
+    try{
+        
+    }catch(err){
+        console.log(err);
     }
 }
